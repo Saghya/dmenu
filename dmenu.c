@@ -894,6 +894,8 @@ main(int argc, char *argv[])
 {
 	XWindowAttributes wa;
 	int i, fast = 0;
+    centered = 1;
+    dmw = min_width;
 
 	for (i = 1; i < argc; i++)
 		/* these options take no arguments */
@@ -914,10 +916,14 @@ main(int argc, char *argv[])
 		/* these options take one argument */
 		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
 			lines = atoi(argv[++i]);
-		else if (!strcmp(argv[i], "-x"))   /* window x offset */
+		else if (!strcmp(argv[i], "-x")) { /* window x offset */
 			dmx = atoi(argv[++i]);
-		else if (!strcmp(argv[i], "-y"))   /* window y offset (from bottom up if -b) */
+            centered = 0;
+        }
+		else if (!strcmp(argv[i], "-y")) { /* window y offset (from bottom up if -b) */
 			dmy = atoi(argv[++i]);
+            centered = 0;
+        }
 		else if (!strcmp(argv[i], "-z"))   /* make dmenu this wide */
 			dmw = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-m"))
